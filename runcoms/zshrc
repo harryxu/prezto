@@ -11,3 +11,58 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+export PATH=~/bin:~/opt/bin:/usr/local/php5/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin::$PATH
+
+umask 002
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+export GIT_EDITOR=vim
+export VISUAL=vim
+export EDITOR=vim
+
+if [ -d /usr/local/mysql/bin ]
+then
+    PATH=$PATH:/usr/local/mysql/bin
+fi
+
+# This loads RVM 
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  
+
+# autojump
+#[[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
+
+[[ -s `brew --prefix`/etc/autojump.sh ]] && . `brew --prefix`/etc/autojump.sh
+
+# This line make autojump tab completion work.
+# If you get a message like:
+#   zsh compinit: insecure directories, run compaudit for list.
+#   Ignore insecure directories and continue [y] or abort compinit [n]? y
+# just run 'compaudit | xargs chmod g-w'
+# see: http://www.snowfrog.net/2009/11/19/cygwin-zsh-zsh-compinit-insecure-directories/
+autoload -U compinit && compinit -u
+
+# virtualenvwrapper
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]
+then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+export VAGRANT_HOME="/Volumes/Macintosh HD/Users/harry/.vagrant.d"
+function gi() { curl -s https://www.gitignore.io/api/$@ ;}
+
+COMPLETION_WAITING_DOTS="false"
+
+## Setup zsh-autosuggestions
+#source ~/.zsh-autosuggestions/autosuggestions.zsh
+#
+## Enable autosuggestions automatically
+#zle-line-init() {
+#    zle autosuggest-start
+#}
+#
+#zle -N zle-line-init
+#
+## use ctrl+t to toggle autosuggestions(hopefully this wont be needed as
+## zsh-autosuggestions is designed to be unobtrusive)
+#bindkey '^T' autosuggest-toggle
